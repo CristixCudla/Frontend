@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -8,7 +8,14 @@ export default function Home() {
           <a>
           Aplicatie pentru IP
           </a>
+
+        <div>
+          <Link href="/login">
+          <button style={{ marginRight: '10px' }}>Go to Login</button>
+        </Link>
+        </div>
         </ol>
+        
       </main>
     </div>
   );
