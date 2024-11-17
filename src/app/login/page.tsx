@@ -1,97 +1,96 @@
-'use client'
-import React, { useState } from 'react';
-import Link from 'next/link';
+'use client';
+import React, { useState } from "react";
 import { useRouter } from 'next/navigation';
+import "./login.css";
 
-const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null); // To store error messages
+export default function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState(""); 
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+
   const router = useRouter();
-  
-  
-  const handleSubmit = (e: React.FormEvent) => {
+  // Functie pentru schimbarea vizibilității parolei
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  // Handler pentru trimiterea formularului
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // If the login is successful, navigate to the dashboard page
-    if (email === 'user@example.com' && password === 'password123') {
-        // Successful login - Redirect to dashboard page
-        setError(null); // Clear any previous errors
-        router.push('/dashboard'); // Use router.push to navigate to the dashboard page
-      } else {
-        // Login failed - Show error message
-        setError('Invalid email or password');
-      }
+    if (!formData.username || !formData.password) {
+      setError("Toate câmpurile sunt obligatorii."); 
+    } else if (formData.password.length < 6) {
+      setError("Parola trebuie să aibă cel puțin 6 caractere."); 
+    } else {
+      setError(""); 
+      alert("Formular trimis cu succes!"); // Înlocuiește cu logica ta
+    }
   };
 
-  const loginContainerStyle = {
-    width: '70%',
-    margin: '10 auto',
-    padding: '30px',
-    border: '1px solid #ddd',
-    borderRadius: '10px',
-   
-  };
-
-  const buttonStyle = {
-    width: '100%',
-    padding: '5px',
-    backgroundColor: '#0070f3',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-  };
-
-  const inputStyle = {
-    border: '2px solid black',
-    justifycontent: 'center',
-  };
-
-  const labelStyle ={
-    padding: '2%',
+  // Handler pentru schimbarea valorii câmpurilor
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   return (
-    <div style={loginContainerStyle}>
-    <div>
-      <h1>Login Page</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email" style={labelStyle}>Email</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={inputStyle}
-          />
-        </div>
-        <div>
-          <label htmlFor="password" style={labelStyle}>Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={inputStyle}
-          />
-        </div>
-        <button type="submit" style={buttonStyle}>Login</button>
-      </form>
+    <div className="login-container">
+      {/* Formular de logare */}
+      <div className="login-form">
+        <h2>Login Now</h2>
+        <form className="form-primary" onSubmit={handleSubmit}>
+          <div className="text-box-form">
+            <div className="input-group">
+              <img src="/user.png" alt="User Icon" className="icon" />
+              <input
+                type="text"
+                name="username"
+                placeholder="Email or Username"
+                value={formData.username}
+                onChange={handleChange} // Actualizează datele introduse
+              />
+            </div>
+            <div className="input-group">
+              <img src="/padlock.png" alt="Padlock Icon" className="icon" />
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleChange} // Actualizează datele introduse
+              />
+              <img
+                src={showPassword ? "/show.png" : "/hide.png"} // Schimbare imagine între "show" și "hide"
+                alt="Eyes Icon"
+                className="icon-eyes"
+                onClick={togglePasswordVisibility} // Apelează handler-ul la click
+                style={{ cursor: "pointer" }} // Adaugă un pointer pentru interacțiune
+              />
+            </div>
+            {error && <p className="error-message">{error}</p>} {/* Afișează eroarea */}
+          </div>
+          <div className="button-submit">
+            <button type="submit">Login</button>
+          </div>
+        </form>
+      </div>
 
-      {/* After successful login, navigate to dashboard using Link */}
-      <p>
-      </p>
-
-      {/* If login is successful, link to dashboard */}
-      <Link href="/dashboard">
-        <button>Go to Dashboard</button>
-      </Link>
-    </div>
+      {/* Secțiunea cu logo și ilustrație */}
+      <div className="illustration">
+        <img src="/logo.png" alt="USV Logo" className="logo" />
+        <div className="illustration-background">
+          <div className="illustration-mini">
+            <img src="/illustration.png" alt="Illustration" className="illustration-image"/>
+          </div>
+        </div>
+      </div>
     </div>
   );
-};
+}
 
-export default LoginPage;
