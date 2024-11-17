@@ -13,6 +13,8 @@ export default function Home() {
           <Link href="/login">
           <button style={{ marginRight: '10px' }}>Go to Login</button>
         </Link>
+
+        <button>Buna ziua tuturor</button>
         </div>
         </ol>
         
