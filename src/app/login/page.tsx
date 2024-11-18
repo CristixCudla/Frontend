@@ -1,36 +1,41 @@
 'use client';
-import React, { useState } from "react";
-import { useRouter } from 'next/navigation';
-import "./login.css";
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation'; // Import the Next.js useRouter hook
+import './login.css';
 
 export default function LoginPage() {
+  const router = useRouter(); // Initialize the router
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState(""); 
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   });
 
-  const router = useRouter();
-  // Functie pentru schimbarea vizibilității parolei
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
 
-  // Handler pentru trimiterea formularului
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!formData.username || !formData.password) {
-      setError("Toate câmpurile sunt obligatorii."); 
+      setError('Toate câmpurile sunt obligatorii.');
     } else if (formData.password.length < 6) {
-      setError("Parola trebuie să aibă cel puțin 6 caractere."); 
+      setError('Parola trebuie să aibă cel puțin 6 caractere.');
     } else {
-      setError(""); 
-      alert("Formular trimis cu succes!"); // Înlocuiește cu logica ta
-    }
+      setError('');
+      if (formData.username.includes('teacher')) {
+        router.push('/dashboardteacher'); // Navigate to the teacher dashboard
+      } else {
+        if (formData.username.includes('student')) {
+        router.push('/dashboardstudent'); // Navigate to the student dashboard
+      } else {
+        alert('Utilizator invalid.');
+      }
+    }}
   };
 
-  // Handler pentru schimbarea valorii câmpurilor
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -41,7 +46,7 @@ export default function LoginPage() {
 
   return (
     <div className="login-container">
-      {/* Formular de logare */}
+      {/* Login Form */}
       <div className="login-form">
         <h2>Login Now</h2>
         <form className="form-primary" onSubmit={handleSubmit}>
@@ -53,27 +58,27 @@ export default function LoginPage() {
                 name="username"
                 placeholder="Email or Username"
                 value={formData.username}
-                onChange={handleChange} // Actualizează datele introduse
+                onChange={handleChange}
               />
             </div>
             <div className="input-group">
               <img src="/padlock.png" alt="Padlock Icon" className="icon" />
               <input
-                type={showPassword ? "text" : "password"}
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 placeholder="Password"
                 value={formData.password}
-                onChange={handleChange} // Actualizează datele introduse
+                onChange={handleChange}
               />
               <img
-                src={showPassword ? "/show.png" : "/hide.png"} // Schimbare imagine între "show" și "hide"
+                src={showPassword ? '/show.png' : '/hide.png'}
                 alt="Eyes Icon"
                 className="icon-eyes"
-                onClick={togglePasswordVisibility} // Apelează handler-ul la click
-                style={{ cursor: "pointer" }} // Adaugă un pointer pentru interacțiune
+                onClick={togglePasswordVisibility}
+                style={{ cursor: 'pointer' }}
               />
             </div>
-            {error && <p className="error-message">{error}</p>} {/* Afișează eroarea */}
+            {error && <p className="error-message">{error}</p>}
           </div>
           <div className="button-submit">
             <button type="submit">Login</button>
@@ -81,16 +86,15 @@ export default function LoginPage() {
         </form>
       </div>
 
-      {/* Secțiunea cu logo și ilustrație */}
+      {/* Logo and Illustration */}
       <div className="illustration">
         <img src="/logo.png" alt="USV Logo" className="logo" />
         <div className="illustration-background">
           <div className="illustration-mini">
-            <img src="/illustration.png" alt="Illustration" className="illustration-image"/>
+            <img src="/illustration.png" alt="Illustration" className="illustration-image" />
           </div>
         </div>
       </div>
     </div>
   );
 }
-
