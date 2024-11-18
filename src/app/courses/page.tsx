@@ -17,7 +17,7 @@ const CoursePage = () => {
             </Link>
           </li>
           <li>
-            <Link href="/calendarpage">
+            <Link href="/calendar">
               <img src="/public/calendar.png" alt="Calendar" className="menu-icon" />
             </Link>
           </li>
