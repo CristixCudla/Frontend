@@ -1,10 +1,18 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link'; 
+import Link from 'next/link';
+import { useRouter } from 'next/navigation'; 
 import './dashboardstudent.css';
 
 const DashboardStudent = () => {
+  const router = useRouter(); // Initialize the router
+
+  const handleLogout = () => {
+    // Redirect to the homepage (page.tsx)
+    router.push('/');
+  };
+
   return (
     <div className="dashboard-container">
       {/* Sidebar Section */}
@@ -36,6 +44,13 @@ const DashboardStudent = () => {
             </Link>
           </li>
         </ul>
+
+        {/* Logout Button */}
+        <div className="logout-container">
+          <button className="logout-button" onClick={handleLogout}>
+            <img src="/logout.png" alt="Logout Icon" className="menu-icon" />
+          </button>
+        </div>
       </div>
 
       {/* Main Content Section */}
