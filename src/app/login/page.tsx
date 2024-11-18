@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation'; // Import the Next.js useRouter hook
+import { useRouter } from 'next/navigation'; 
 import './login.css';
 
 export default function LoginPage() {
@@ -19,21 +19,32 @@ export default function LoginPage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!formData.username || !formData.password) {
+    const { username, password } = formData;
+
+    // Check if fields are empty
+    if (!username || !password) {
       setError('Toate câmpurile sunt obligatorii.');
-    } else if (formData.password.length < 6) {
-      setError('Parola trebuie să aibă cel puțin 6 caractere.');
-    } else {
-      setError('');
-      if (formData.username.includes('teacher')) {
+      return;
+    }
+
+    // Check if password is correct
+    if (password !== 'password1234') {
+      setError('Parola este incorectă.');
+      return;
+    }
+
+    // Check email format for student or professor
+    if (username.endsWith('@usv.ro')) {
+      if (username.startsWith('student')) {
+        router.push('/dashboardstudent'); // Navigate to the student dashboard
+      } else if (username.startsWith('profesor')) {
         router.push('/dashboardteacher'); // Navigate to the teacher dashboard
       } else {
-        if (formData.username.includes('student')) {
-        router.push('/dashboardstudent'); // Navigate to the student dashboard
-      } else {
-        alert('Utilizator invalid.');
+        setError('Email invalid. Format permis: student@usv.ro sau profesor@usv.ro.');
       }
-    }}
+    } else {
+      setError('Email invalid. Format permis: student@usv.ro sau profesor@usv.ro.');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +67,7 @@ export default function LoginPage() {
               <input
                 type="text"
                 name="username"
-                placeholder="Email or Username"
+                placeholder="Email"
                 value={formData.username}
                 onChange={handleChange}
               />

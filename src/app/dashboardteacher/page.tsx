@@ -3,8 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import './dashboardteacher.css';
+import { useRouter } from 'next/navigation'; 
 
 const TeacherDashboard = () => {
+  const router = useRouter(); // Initialize the router
+
   // Example courses
   const courses = [
     { id: 1, name: 'Mathematics', slug: 'mathematics' },
@@ -12,7 +15,11 @@ const TeacherDashboard = () => {
     { id: 3, name: 'Chemistry', slug: 'chemistry' },
     { id: 4, name: 'Biology', slug: 'biology' },
   ];
-  
+
+  const handleLogout = () => {
+    // Redirect to the homepage (page.tsx)
+    router.push('/');
+  };
 
   return (
     <div className="teacher-dashboard">
@@ -41,6 +48,12 @@ const TeacherDashboard = () => {
             </Link>
           </li>
         </ul>
+        {/* Logout Button */}
+        <div className="logout-container">
+          <button className="logout-button" onClick={handleLogout}>
+            <img src="/logout.png" alt="Logout Icon" className="menu-icon" />
+          </button>
+        </div>
       </div>
 
       {/* Main Content */}
@@ -59,8 +72,8 @@ const TeacherDashboard = () => {
 
         {/* Courses Section */}
         <div className="courses">
-        {courses.map((course) => (
-            <Link key={course.slug} href={`/courseteacher/`}>
+          {courses.map((course) => (
+            <Link key={course.slug} href={`/courseteacher/${course.slug}`}>
               <div className="course-card">
                 <p>{course.name}</p>
               </div>
