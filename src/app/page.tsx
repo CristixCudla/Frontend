@@ -50,7 +50,7 @@ const HomePage = () => {
         <div className="useful-links">
           <h2>Link-uri utile</h2>
           <ul>
-            <li><a href="/guide" target="_blank">Ghidul studentului</a></li>
+            <li><a href="https://fiesc.usv.ro/wp-content/uploads/sites/17/2024/10/Ghidul_Studentului_FIESC_2024_2025.pdf" target="_blank" rel="noopener noreferrer">Ghidul studentului</a></li>
             <li><a href="/rules" target="_blank">Regulament examene</a></li>
             <li><a href="/faq" target="_blank">Întrebări frecvente</a></li>
           </ul>
