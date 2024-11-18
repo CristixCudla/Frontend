@@ -33,7 +33,7 @@ const TeacherDashboard = () => {
             </Link>
           </li>
           <li>
-            <Link href="/calendarpage">
+            <Link href="/calendar">
               <img src="/public/calendar.png" alt="Calendar" className="sidebar-icon" />
             </Link>
           </li>
