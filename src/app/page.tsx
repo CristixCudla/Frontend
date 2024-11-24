@@ -1,29 +1,61 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import './globals.css';
 
 const HomePage = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Observăm schimbările în URL folosind un event listener
+    const handlePopState = () => {
+      console.log('Navigare înapoi sau înainte');
+      // Poți adăuga logica pentru resetarea layout-ului aici
+    };
+
+    // Ascultăm evenimentele de navigare
+    window.addEventListener('popstate', handlePopState);
+
+    // Curățăm listener-ul când componenta este demontată
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, []);
+
+  const navigateTo = (path: string) => {
+    router.push(path); // Navighează către ruta specificată
+  };
+
   return (
     <div className="dashboard-container">
       {/* Sidebar Section */}
       <div className="sidebar">
-        <Link href="/">
+        <div>
           <img src="/logo.png" alt="USV Logo" className="logo" />
-        </Link>
+        </div>
         <ul>
           {/* Contact Button */}
           <li>
-            <Link href="/contact">
-              <img src="/info.png" alt="Contact" className="menu-icon" />
-            </Link>
+            <div
+              className="menu-icon-container"
+              onClick={() => navigateTo('/contact')}
+              style={{ cursor: 'pointer' }}
+            >
+              <img src="/info.png" alt="Info" className="menu-icon" />
+              <div className="menu-tooltip">Informații de contact</div>
+            </div>
           </li>
           {/* Auth Button */}
           <li>
-            <Link href="/login">
+            <div
+              className="menu-icon-container"
+              onClick={() => navigateTo('/login')}
+              style={{ cursor: 'pointer' }}
+            >
               <img src="/login.png" alt="Login" className="menu-icon" />
-            </Link>
+              <div className="menu-tooltip">Conectare la cont</div>
+            </div>
           </li>
         </ul>
       </div>
@@ -50,9 +82,25 @@ const HomePage = () => {
         <div className="useful-links">
           <h2>Link-uri utile</h2>
           <ul>
-            <li><a href="https://fiesc.usv.ro/wp-content/uploads/sites/17/2024/10/Ghidul_Studentului_FIESC_2024_2025.pdf" target="_blank" rel="noopener noreferrer">Ghidul studentului</a></li>
-            <li><a href="/rules" target="_blank">Regulament examene</a></li>
-            <li><a href="/faq" target="_blank">Întrebări frecvente</a></li>
+            <li>
+              <a
+                href="https://fiesc.usv.ro/wp-content/uploads/sites/17/2024/10/Ghidul_Studentului_FIESC_2024_2025.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ghidul studentului
+              </a>
+            </li>
+            <li>
+              <a href="/rules" target="_blank">
+                Regulament examene
+              </a>
+            </li>
+            <li>
+              <a href="/faq" target="_blank">
+                Întrebări frecvente
+              </a>
+            </li>
           </ul>
         </div>
       </div>
