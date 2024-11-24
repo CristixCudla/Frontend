@@ -1,47 +1,48 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
 import './dashboardstudent.css';
 
 const DashboardStudent = () => {
-  const router = useRouter(); // Initialize the router
+  const router = useRouter(); // Initialize router
+
+  const navigateTo = (path: string) => {
+    router.push(path); // Navigare programatică
+  };
 
   const handleLogout = () => {
-    // Redirect to the homepage (page.tsx)
-    router.push('/');
+    navigateTo('/'); // Navighează la pagina principală
   };
 
   return (
     <div className="dashboard-container">
       {/* Sidebar Section */}
       <div className="sidebar">
+      <div onClick={() => navigateTo('/dashboardstudent')} style={{ cursor: 'pointer' }}>
         <img src="/logo.png" alt="USV Logo" className="logo" />
+        </div>
         <ul>
-          {/* Dashboard (Home) Button */}
-          <li>
-            <Link href="/dashboardstudent">
-              <img src="/public/home.png" alt="Home" className="menu-icon" />
-            </Link>
-          </li>
           {/* Calendar Button */}
           <li>
-            <Link href="/calendar">
-              <img src="/public/calendar.png" alt="Calendar" className="menu-icon" />
-            </Link>
+            <div className="menu-icon-container" onClick={() => navigateTo('/calendar')} style={{ cursor: 'pointer' }}>
+              <img src="/calendar.png" alt="Calendar" className="menu-icon" />
+              <div className="menu-tooltip">Calendar</div>
+            </div>
           </li>
           {/* Courses Button */}
           <li>
-            <Link href="/courses">
-              <img src="/public/curs.png" alt="Courses" className="menu-icon" />
-            </Link>
+            <div className="menu-icon-container" onClick={() => navigateTo('/courses')} style={{ cursor: 'pointer' }}>
+              <img src="/agenda.png" alt="Courses" className="menu-icon" />
+              <div className="menu-tooltip">Cursuri</div>
+            </div>
           </li>
           {/* Settings Button */}
           <li>
-            <Link href="/settings">
-              <img src="/public/settings.png" alt="Settings" className="menu-icon" />
-            </Link>
+            <div className="menu-icon-container" onClick={() => navigateTo('/settings')} style={{ cursor: 'pointer' }}>
+              <img src="/settings.png" alt="Settings" className="menu-icon" />
+              <div className="menu-tooltip">Setări</div>
+            </div>
           </li>
         </ul>
 
@@ -49,6 +50,7 @@ const DashboardStudent = () => {
         <div className="logout-container">
           <button className="logout-button" onClick={handleLogout}>
             <img src="/logout.png" alt="Logout Icon" className="menu-icon" />
+            <div className="menu-tooltip">Deconectare</div>
           </button>
         </div>
       </div>
@@ -56,10 +58,10 @@ const DashboardStudent = () => {
       {/* Main Content Section */}
       <div className="content">
         <div className="announcements">
-          <div className="announcement">Anunț 1</div>
-          <div className="announcement">Anunț 2</div>
-          <div className="announcement">Anunț 3</div>
-          <div className="announcement">Anunț 4</div>
+        <div className="announcement">Anunț 1 - Important!</div>
+          <div className="announcement">Anunț 2 - Verifică programările.</div>
+          <div className="announcement">Anunț 3 - Modificări de sală.</div>
+          <div className="announcement">Anunț 4 - Termen limită înscriere.</div>
         </div>
       </div>
     </div>

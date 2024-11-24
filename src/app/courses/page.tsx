@@ -1,35 +1,37 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation'; // Importă useRouter
 import './courses.css';
 
 const CoursePage = () => {
+  const router = useRouter(); // Inițializează router-ul
+
+  const navigateTo = (path: string) => {
+    router.push(path); // Navigare programatică
+  };
+
   return (
     <div className="course-page-container">
       {/* Sidebar Section */}
       <div className="sidebar">
+      <div
+              className="menu-icon-container"
+              onClick={() => navigateTo('/dashboardstudent')}
+              style={{ cursor: 'pointer' }}
+            >
         <img src="/logo.png" alt="USV Logo" className="logo" />
+        </div>
         <ul>
           <li>
-            <Link href="/dashboardstudent">
-              <img src="/public/home.png" alt="Home" className="menu-icon" />
-            </Link>
-          </li>
-          <li>
-            <Link href="/calendar">
-              <img src="/public/calendar.png" alt="Calendar" className="menu-icon" />
-            </Link>
-          </li>
-          <li>
-            <Link href="/courses">
-              <img src="/public/curs.png" alt="Courses" className="menu-icon active" />
-            </Link>
-          </li>
-          <li>
-            <Link href="/settings">
-              <img src="/public/settings.png" alt="Settings" className="menu-icon" />
-            </Link>
+            <div
+              className="menu-icon-container"
+              onClick={() => navigateTo('/calendar')}
+              style={{ cursor: 'pointer' }}
+            >
+              <img src="/calendar.png" alt="Calendar" className="menu-icon" />
+              <div className='menu-tooltip'>Calendar</div>
+            </div>
           </li>
         </ul>
       </div>
@@ -39,7 +41,7 @@ const CoursePage = () => {
         <div className="search-bar">
           <input
             type="text"
-            placeholder="Hinted search text"
+            placeholder="Caută..."
             className="search-input"
           />
           <button className="search-button">
