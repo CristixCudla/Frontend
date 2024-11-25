@@ -1,10 +1,11 @@
 'use client';
+
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
 import './login.css';
 
 export default function LoginPage() {
-  const router = useRouter(); // Initialize the router
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
@@ -21,24 +22,27 @@ export default function LoginPage() {
 
     const { username, password } = formData;
 
-    // Check if fields are empty
+    // Validare câmpuri
     if (!username || !password) {
       setError('Toate câmpurile sunt obligatorii.');
       return;
     }
 
-    // Check if password is correct
     if (password !== 'password1234') {
       setError('Parola este incorectă.');
       return;
     }
 
-    // Check email format for student or professor
+    // Verificare email
     if (username.endsWith('@usv.ro')) {
       if (username.startsWith('student')) {
-        router.push('/dashboardstudent'); // Navigate to the student dashboard
+        document.cookie = 'isLoggedIn=true; path=/;';
+        document.cookie = 'userRole=student; path=/;';
+        router.replace('/dashboardstudent'); // Folosim replace pentru a șterge istoricul
       } else if (username.startsWith('profesor')) {
-        router.push('/dashboardteacher'); // Navigate to the teacher dashboard
+        document.cookie = 'isLoggedIn=true; path=/;';
+        document.cookie = 'userRole=profesor; path=/;';
+        router.replace('/dashboardteacher');
       } else {
         setError('Email invalid. Format permis: student@usv.ro sau profesor@usv.ro.');
       }
@@ -57,7 +61,6 @@ export default function LoginPage() {
 
   return (
     <div className="login-container">
-      {/* Login Form */}
       <div className="login-form">
         <h2>Login Now</h2>
         <form className="form-primary" onSubmit={handleSubmit}>
@@ -96,8 +99,6 @@ export default function LoginPage() {
           </div>
         </form>
       </div>
-
-      {/* Logo and Illustration */}
       <div className="illustration">
         <img src="/logo.png" alt="USV Logo" className="logo" />
         <div className="illustration-background">

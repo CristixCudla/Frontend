@@ -1,88 +1,73 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import './dashboardteacher.css';
-import { useRouter } from 'next/navigation'; 
 
-const TeacherDashboard = () => {
-  const router = useRouter(); // Initialize the router
+const DashboardTeacher = () => {
+  const router = useRouter(); 
 
-  // Example courses
-  const courses = [
-    { id: 1, name: 'Mathematics', slug: 'mathematics' },
-    { id: 2, name: 'Physics', slug: 'physics' },
-    { id: 3, name: 'Chemistry', slug: 'chemistry' },
-    { id: 4, name: 'Biology', slug: 'biology' },
-  ];
+  const navigateTo = (path: string) => {
+    router.replace(path); 
+  };
 
   const handleLogout = () => {
-    // Redirect to the homepage (page.tsx)
-    router.push('/');
+    document.cookie = 'isLoggedIn=; Max-Age=0; path=/;';
+    document.cookie = 'userRole=; Max-Age=0; path=/;';
+    router.replace('/'); 
   };
 
   return (
-    <div className="teacher-dashboard">
-      {/* Sidebar */}
+    <div className="dashboard-container">
+      {/* Sidebar Section */}
       <div className="sidebar">
-        <img src="/logo.png" alt="USV Logo" className="sidebar-logo" />
-        <ul className="sidebar-menu">
+      <div onClick={() => navigateTo('/dashboardteacher')} style={{ cursor: 'pointer' }}>
+        <img src="/logo.png" alt="USV Logo" className="logo" />
+        </div>
+        <ul>
+          {/* Calendar Button */}
           <li>
-            <Link href="/dashboardteacher">
-              <img src="/public/home.png" alt="Home" className="sidebar-icon" />
-            </Link>
+            <div className="menu-icon-container" onClick={() => navigateTo('/calendar')} style={{ cursor: 'pointer' }}>
+              <img src="/calendar.png" alt="Calendar" className="menu-icon" />
+              <div className="menu-tooltip">Calendar</div>
+            </div>
           </li>
+          {/* Courses Button */}
           <li>
-            <Link href="/calendar">
-              <img src="/public/calendar.png" alt="Calendar" className="sidebar-icon" />
-            </Link>
+            <div className="menu-icon-container" onClick={() => navigateTo('/courses')} style={{ cursor: 'pointer' }}>
+              <img src="/agenda.png" alt="Courses" className="menu-icon" />
+              <div className="menu-tooltip">Cursuri</div>
+            </div>
           </li>
+          {/* Settings Button */}
           <li>
-            <Link href="/teacher-announcement">
-              <img src="/public/add.png" alt="Add" className="sidebar-icon" />
-            </Link>
-          </li>
-          <li>
-            <Link href="/settings">
-              <img src="/public/settings.png" alt="Settings" className="sidebar-icon" />
-            </Link>
+            <div className="menu-icon-container" onClick={() => navigateTo('/settings')} style={{ cursor: 'pointer' }}>
+              <img src="/settings.png" alt="Settings" className="menu-icon" />
+              <div className="menu-tooltip">Setări</div>
+            </div>
           </li>
         </ul>
+
         {/* Logout Button */}
         <div className="logout-container">
           <button className="logout-button" onClick={handleLogout}>
             <img src="/logout.png" alt="Logout Icon" className="menu-icon" />
+            <div className="menu-tooltip">Deconectare</div>
           </button>
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="main-content">
-        {/* Search Bar */}
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Hinted search text"
-            className="search-input"
-          />
-          <button className="search-button">
-            <img src="/public/search.png" alt="Search" />
-          </button>
-        </div>
-
-        {/* Courses Section */}
-        <div className="courses">
-          {courses.map((course) => (
-            <Link key={course.slug} href={`/courseteacher/${course.slug}`}>
-              <div className="course-card">
-                <p>{course.name}</p>
-              </div>
-            </Link>
-          ))}
+      {/* Main Content Section */}
+      <div className="content">
+        <div className="announcements">
+        <div className="announcement">Anunț 1 - Important!</div>
+          <div className="announcement">Anunț 2 - Verifică programările.</div>
+          <div className="announcement">Anunț 3 - Modificări de sală.</div>
+          <div className="announcement">Anunț 4 - Termen limită înscriere.</div>
         </div>
       </div>
     </div>
   );
 };
 
-export default TeacherDashboard;
+export default DashboardTeacher;

@@ -8,11 +8,13 @@ const DashboardStudent = () => {
   const router = useRouter(); // Initialize router
 
   const navigateTo = (path: string) => {
-    router.push(path); // Navigare programatică
+    router.replace(path); // Navigare programatică
   };
 
   const handleLogout = () => {
-    navigateTo('/'); // Navighează la pagina principală
+    document.cookie = 'isLoggedIn=; Max-Age=0; path=/;';
+    document.cookie = 'userRole=; Max-Age=0; path=/;';
+    router.replace('/'); // Navighează la pagina principală
   };
 
   return (
