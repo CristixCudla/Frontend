@@ -2,30 +2,29 @@
 
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link'; 
 import './globals.css';
 
 const HomePage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // Observăm schimbările în URL folosind un event listener
-    const handlePopState = () => {
-      console.log('Navigare înapoi sau înainte');
-      // Poți adăuga logica pentru resetarea layout-ului aici
+    const checkAuthStatus = () => {
+      const isLoggedIn = document.cookie.includes('isLoggedIn=true');
+      const userRole = document.cookie.split('; ').find((row) => row.startsWith('userRole='));
+
+      if (isLoggedIn && userRole) {
+        const role = userRole.split('=')[1];
+        if (role === 'student') {
+          router.replace('/dashboardstudent');
+        } else if (role === 'profesor') {
+          router.replace('/dashboardteacher');
+        }
+      }
     };
 
-    // Ascultăm evenimentele de navigare
-    window.addEventListener('popstate', handlePopState);
-
-    // Curățăm listener-ul când componenta este demontată
-    return () => {
-      window.removeEventListener('popstate', handlePopState);
-    };
-  }, []);
-
-  const navigateTo = (path: string) => {
-    router.push(path); // Navighează către ruta specificată
-  };
+    checkAuthStatus();
+  }, [router]);
 
   return (
     <div className="dashboard-container">
@@ -39,7 +38,7 @@ const HomePage = () => {
           <li>
             <div
               className="menu-icon-container"
-              onClick={() => navigateTo('/contact')}
+              onClick={() => router.push('/contact')} // Navigare corectă cu router.push
               style={{ cursor: 'pointer' }}
             >
               <img src="/info.png" alt="Info" className="menu-icon" />
@@ -50,7 +49,7 @@ const HomePage = () => {
           <li>
             <div
               className="menu-icon-container"
-              onClick={() => navigateTo('/login')}
+              onClick={() => router.push('/login')} // Navigare corectă cu router.push
               style={{ cursor: 'pointer' }}
             >
               <img src="/login.png" alt="Login" className="menu-icon" />
@@ -92,14 +91,11 @@ const HomePage = () => {
               </a>
             </li>
             <li>
-              <a href="/rules" target="_blank">
-                Regulament examene
-              </a>
+              {/* Folosim Link pentru navigare internă */}
+                <a>Regulament examene</a>              
             </li>
             <li>
-              <a href="/faq" target="_blank">
-                Întrebări frecvente
-              </a>
+                <a>Întrebări frecvente</a>
             </li>
           </ul>
         </div>

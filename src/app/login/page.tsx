@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation'; // Importare hook pentru navigare
 import './login.css';
 
 export default function LoginPage() {
@@ -13,10 +13,12 @@ export default function LoginPage() {
     password: '',
   });
 
+  // Funcție pentru a afișa/ascunde parola
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
 
+  // Funcție de gestionare a trimiterii formularului
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -28,21 +30,22 @@ export default function LoginPage() {
       return;
     }
 
+    // Validare parolă (exemplu)
     if (password !== 'password1234') {
       setError('Parola este incorectă.');
       return;
     }
 
-    // Verificare email
+    // Validare email și redirecționare
     if (username.endsWith('@usv.ro')) {
       if (username.startsWith('student')) {
         document.cookie = 'isLoggedIn=true; path=/;';
         document.cookie = 'userRole=student; path=/;';
-        router.replace('/dashboardstudent'); // Folosim replace pentru a șterge istoricul
+        router.push('/dashboardstudent'); // Navigare cu router.push
       } else if (username.startsWith('profesor')) {
         document.cookie = 'isLoggedIn=true; path=/;';
         document.cookie = 'userRole=profesor; path=/;';
-        router.replace('/dashboardteacher');
+        router.push('/dashboardteacher'); // Navigare cu router.push
       } else {
         setError('Email invalid. Format permis: student@usv.ro sau profesor@usv.ro.');
       }
@@ -51,6 +54,26 @@ export default function LoginPage() {
     }
   };
 
+  // Verificare autentificare pe încărcarea paginii
+  useEffect(() => {
+    const checkAuthStatus = () => {
+      const isLoggedIn = document.cookie.includes('isLoggedIn=true');
+      const userRole = document.cookie.split('; ').find((row) => row.startsWith('userRole='));
+
+      if (isLoggedIn && userRole) {
+        const role = userRole.split('=')[1];
+        if (role === 'student') {
+          router.push('/dashboardstudent'); // Navigare cu router.push
+        } else if (role === 'profesor') {
+          router.push('/dashboardteacher'); // Navigare cu router.push
+        }
+      }
+    };
+
+    checkAuthStatus();
+  }, [router]);
+
+  // Gestionare schimbare în câmpurile de text
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -65,6 +88,7 @@ export default function LoginPage() {
         <h2>Login Now</h2>
         <form className="form-primary" onSubmit={handleSubmit}>
           <div className="text-box-form">
+            {/* Input pentru email */}
             <div className="input-group">
               <img src="/user.png" alt="User Icon" className="icon" />
               <input
@@ -75,6 +99,7 @@ export default function LoginPage() {
                 onChange={handleChange}
               />
             </div>
+            {/* Input pentru parola */}
             <div className="input-group">
               <img src="/padlock.png" alt="Padlock Icon" className="icon" />
               <input
@@ -92,13 +117,16 @@ export default function LoginPage() {
                 style={{ cursor: 'pointer' }}
               />
             </div>
+            {/* Mesaj de eroare */}
             {error && <p className="error-message">{error}</p>}
           </div>
+          {/* Buton de conectare */}
           <div className="button-submit">
             <button type="submit">Login</button>
           </div>
         </form>
       </div>
+      {/* Ilustrație pentru partea dreaptă */}
       <div className="illustration">
         <img src="/logo.png" alt="USV Logo" className="logo" />
         <div className="illustration-background">

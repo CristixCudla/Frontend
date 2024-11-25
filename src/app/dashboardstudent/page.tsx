@@ -1,47 +1,69 @@
 'use client';
 
-import React from 'react';
+import Image from 'next/image';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import './dashboardstudent.css';
 
 const DashboardStudent = () => {
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
 
-  const navigateTo = (path: string) => {
-    router.replace(path); // Navigare programatică
-  };
+  useEffect(() => {
+    const checkAuthStatus = () => {
+      const isLoggedIn = document.cookie.includes('isLoggedIn=true');
+      const userRole = document.cookie.split('; ').find((row) => row.startsWith('userRole=student'));
+
+      if (!isLoggedIn || !userRole) {
+        router.push('/'); // Navigare corectă
+      }
+    };
+
+    checkAuthStatus();
+  }, [router]);
 
   const handleLogout = () => {
     document.cookie = 'isLoggedIn=; Max-Age=0; path=/;';
     document.cookie = 'userRole=; Max-Age=0; path=/;';
-    router.replace('/'); // Navighează la pagina principală
+    router.push('/'); // Navigare la pagina principală
   };
 
   return (
     <div className="dashboard-container">
       {/* Sidebar Section */}
       <div className="sidebar">
-      <div onClick={() => navigateTo('/dashboardstudent')} style={{ cursor: 'pointer' }}>
-        <img src="/logo.png" alt="USV Logo" className="logo" />
+        <div onClick={() => router.push('/dashboardstudent')} style={{ cursor: 'pointer' }}>
+          <img src="/logo.png" alt="USV Logo" className="logo" />
         </div>
         <ul>
           {/* Calendar Button */}
           <li>
-            <div className="menu-icon-container" onClick={() => navigateTo('/calendar')} style={{ cursor: 'pointer' }}>
+            <div
+              className="menu-icon-container"
+              onClick={() => router.push('/calendar')} // Navigare corectă
+              style={{ cursor: 'pointer' }}
+            >
               <img src="/calendar.png" alt="Calendar" className="menu-icon" />
               <div className="menu-tooltip">Calendar</div>
             </div>
           </li>
           {/* Courses Button */}
           <li>
-            <div className="menu-icon-container" onClick={() => navigateTo('/courses')} style={{ cursor: 'pointer' }}>
+            <div
+              className="menu-icon-container"
+              onClick={() => router.push('/courses')} // Navigare corectă
+              style={{ cursor: 'pointer' }}
+            >
               <img src="/agenda.png" alt="Courses" className="menu-icon" />
               <div className="menu-tooltip">Cursuri</div>
             </div>
           </li>
           {/* Settings Button */}
           <li>
-            <div className="menu-icon-container" onClick={() => navigateTo('/settings')} style={{ cursor: 'pointer' }}>
+            <div
+              className="menu-icon-container"
+              onClick={() => router.push('/settings')} // Navigare corectă
+              style={{ cursor: 'pointer' }}
+            >
               <img src="/settings.png" alt="Settings" className="menu-icon" />
               <div className="menu-tooltip">Setări</div>
             </div>
@@ -60,7 +82,7 @@ const DashboardStudent = () => {
       {/* Main Content Section */}
       <div className="content">
         <div className="announcements">
-        <div className="announcement">Anunț 1 - Important!</div>
+          <div className="announcement">Anunț 1 - Important!</div>
           <div className="announcement">Anunț 2 - Verifică programările.</div>
           <div className="announcement">Anunț 3 - Modificări de sală.</div>
           <div className="announcement">Anunț 4 - Termen limită înscriere.</div>
