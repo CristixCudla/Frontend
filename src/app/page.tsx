@@ -8,6 +8,10 @@ import './globals.css';
 const HomePage = () => {
   const router = useRouter();
 
+  const handleNavigation = (path: string) => {
+    router.push(path);
+  };
+
   useEffect(() => {
     const checkAuthStatus = () => {
       const isLoggedIn = document.cookie.includes('isLoggedIn=true');
@@ -16,9 +20,9 @@ const HomePage = () => {
       if (isLoggedIn && userRole) {
         const role = userRole.split('=')[1];
         if (role === 'student') {
-          router.replace('/dashboardstudent');
+          handleNavigation('/dashboardstudent');
         } else if (role === 'profesor') {
-          router.replace('/dashboardteacher');
+          handleNavigation('/dashboardteacher');
         }
       }
     };
@@ -38,7 +42,7 @@ const HomePage = () => {
           <li>
             <div
               className="menu-icon-container"
-              onClick={() => router.push('/contact')} // Navigare corectă cu router.push
+              onClick={() => handleNavigation('/contact')} // Navigare corectă cu router.push
               style={{ cursor: 'pointer' }}
             >
               <img src="/info.png" alt="Info" className="menu-icon" />
@@ -49,7 +53,7 @@ const HomePage = () => {
           <li>
             <div
               className="menu-icon-container"
-              onClick={() => router.push('/login')} // Navigare corectă cu router.push
+              onClick={() => handleNavigation('/login')} // Navigare corectă cu router.push
               style={{ cursor: 'pointer' }}
             >
               <img src="/login.png" alt="Login" className="menu-icon" />

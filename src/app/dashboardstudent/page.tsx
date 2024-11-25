@@ -8,6 +8,10 @@ import './dashboardstudent.css';
 const DashboardStudent = () => {
   const router = useRouter();
 
+  const handleNavigation = (path: string) => {
+    router.push(path);
+  };
+
   useEffect(() => {
     const checkAuthStatus = () => {
       const isLoggedIn = document.cookie.includes('isLoggedIn=true');
@@ -31,7 +35,7 @@ const DashboardStudent = () => {
     <div className="dashboard-container">
       {/* Sidebar Section */}
       <div className="sidebar">
-        <div onClick={() => router.push('/dashboardstudent')} style={{ cursor: 'pointer' }}>
+        <div onClick={() => handleNavigation('/dashboardstudent')} style={{ cursor: 'pointer' }}>
           <img src="/logo.png" alt="USV Logo" className="logo" />
         </div>
         <ul>
@@ -39,7 +43,7 @@ const DashboardStudent = () => {
           <li>
             <div
               className="menu-icon-container"
-              onClick={() => router.push('/calendar')} // Navigare corectă
+              onClick={() => handleNavigation('/calendar')} // Navigare corectă
               style={{ cursor: 'pointer' }}
             >
               <img src="/calendar.png" alt="Calendar" className="menu-icon" />
@@ -50,7 +54,7 @@ const DashboardStudent = () => {
           <li>
             <div
               className="menu-icon-container"
-              onClick={() => router.push('/courses')} // Navigare corectă
+              onClick={() => handleNavigation('/courses')} // Navigare corectă
               style={{ cursor: 'pointer' }}
             >
               <img src="/agenda.png" alt="Courses" className="menu-icon" />
@@ -61,7 +65,7 @@ const DashboardStudent = () => {
           <li>
             <div
               className="menu-icon-container"
-              onClick={() => router.push('/settings')} // Navigare corectă
+              onClick={() => handleNavigation('/settings')} // Navigare corectă
               style={{ cursor: 'pointer' }}
             >
               <img src="/settings.png" alt="Settings" className="menu-icon" />

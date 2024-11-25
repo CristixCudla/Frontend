@@ -13,6 +13,9 @@ export default function LoginPage() {
     password: '',
   });
 
+  const handleNavigation = (path: string) => {
+    router.push(path);
+  };
   // Funcție pentru a afișa/ascunde parola
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -41,11 +44,11 @@ export default function LoginPage() {
       if (username.startsWith('student')) {
         document.cookie = 'isLoggedIn=true; path=/;';
         document.cookie = 'userRole=student; path=/;';
-        router.push('/dashboardstudent'); // Navigare cu router.push
+        handleNavigation('/dashboardstudent'); // Navigare cu router.push
       } else if (username.startsWith('profesor')) {
         document.cookie = 'isLoggedIn=true; path=/;';
         document.cookie = 'userRole=profesor; path=/;';
-        router.push('/dashboardteacher'); // Navigare cu router.push
+        handleNavigation('/dashboardteacher'); // Navigare cu router.push
       } else {
         setError('Email invalid. Format permis: student@usv.ro sau profesor@usv.ro.');
       }
@@ -63,9 +66,9 @@ export default function LoginPage() {
       if (isLoggedIn && userRole) {
         const role = userRole.split('=')[1];
         if (role === 'student') {
-          router.push('/dashboardstudent'); // Navigare cu router.push
+          handleNavigation('/dashboardstudent'); // Navigare cu router.push
         } else if (role === 'profesor') {
-          router.push('/dashboardteacher'); // Navigare cu router.push
+          handleNavigation('/dashboardteacher'); // Navigare cu router.push
         }
       }
     };
