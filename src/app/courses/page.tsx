@@ -37,6 +37,13 @@ useEffect(() => {
   fetchExams(); // Apelează funcția de fetch când componenta este montată
 }, []); // Lista goală ca dependență înseamnă că efectul va fi apelat doar o singură dată când pagina se încarcă
 
+  // Funcția care se apelează la apăsarea tastelor
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      fetchExams(searchTerm); // Apelează funcția de fetch cu termenul de căutare când se apasă Enter
+    }
+  };
+
   return (
     <div className="course-page-container">
       {/* Sidebar Section */}
@@ -74,6 +81,7 @@ useEffect(() => {
             className="search-input"
             value={searchTerm} // Asociază valoarea inputului cu starea
             onChange={(e) => setSearchTerm(e.target.value)} // Actualizează termenul de căutare
+            onKeyDown={handleKeyDown}
           />
           <button className="search-button" onClick={fetchExams}>
             <img src="/search.png" alt="Search" className="search-icon" />
