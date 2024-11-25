@@ -1,0 +1,32 @@
+/* Stiluri pentru Calendar */
+.calendar-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 50px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Stiluri pentru formularul de programare examen */
+  .input-field {
+    border: 1px solid #ccc;
+    padding: 8px;
+    width: 100%;
+    margin-top: 4px;
+    border-radius: 4px;
+  }
+  
+  button {
+    background-color: #312e5c;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #4c478a;
+  }
+  
