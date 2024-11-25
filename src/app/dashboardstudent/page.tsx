@@ -29,14 +29,16 @@ const DashboardStudent = () => {
     document.cookie = 'isLoggedIn=; Max-Age=0; path=/;';
     document.cookie = 'userRole=; Max-Age=0; path=/;';
     router.push('/'); // Navigare la pagina principală
+
   };
 
   return (
     <div className="dashboard-container">
       {/* Sidebar Section */}
-      <div className="sidebar">
+      <div className="sidebar"> 
+        <img src="/logo.png" alt="USV Logo" className="logo" />
         <div onClick={() => handleNavigation('/dashboardstudent')} style={{ cursor: 'pointer' }}>
-          <img src="/logo.png" alt="USV Logo" className="logo" />
+         
         </div>
         <ul>
           {/* Calendar Button */}
