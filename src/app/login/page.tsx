@@ -131,7 +131,9 @@ export default function LoginPage() {
       </div>
       {/* Ilustrație pentru partea dreaptă */}
       <div className="illustration">
+        <div className="illustration-logo">
         <img src="/logo.png" alt="USV Logo" className="logo" />
+        </div>
         <div className="illustration-background">
           <div className="illustration-mini">
             <img src="/illustration.png" alt="Illustration" className="illustration-image" />
