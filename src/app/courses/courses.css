@@ -1,3 +1,5 @@
+@import "../globals.css";
+
 :root {
   --primary-color: #4a3fd6; 
   --color-button: #3429d2;
@@ -5,83 +7,50 @@
   --text-color: white; 
 }
 
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* Layout */
-.course-page-container {
-  display: flex;
-  height: 100vh;
-  background-color: var(--primary-color); /* Fundal principal */
-}
-
 /* Sidebar Styling */
-.sidebar {
+
+.sidebar-courses {
   background-color: var(--secondary-color);
   padding: 20px 10px;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  height: 100vh;
+  gap: 20px;
   width: 110px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
   box-shadow: 4px 0px 8px rgba(0, 0, 0, 0.3);
 }
 
-.logo {
-  width: 80px;
-  height: 75px;
-}
-
-.logo:hover{
-  transform: none;
-}
-
-.sidebar ul {
+.sidebar-courses ul {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Aliniază vertical icon-urile la mijloc */
+  gap: 20px; 
   flex: 1;
+  justify-content: center;
 }
 
-.sidebar ul li {
+.sidebar-courses li {
   margin: 10px 0;
 }
-
-.menu-icon {
-  width: 50px; /* Dimensiuni similare */
-  height: 50px;
-  cursor: pointer;
-  transition: transform 0.2s;
-  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(355deg) brightness(106%) contrast(101%);
-}
-
-.menu-icon.active {
-  background-color: rgba(255, 255, 255, 0.2); /* Fundal activ */
-  border-radius: 50%;
-  padding: 10px;
-}
-
-.menu-icon:hover {
-  transform: scale(0.9); /* Efect la hover */
-}
-
 /* Main Content Styling */
-.content {
+.content-courses {
+  margin-left: 110px;
   flex: 1;
-  background-color: var(--primary-color); /* Fundal principal */
-  padding: 60px; /* Similar cu pagina principală */
+  background-color: var(--primary-color); 
+  padding: 60px; 
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  width: calc(100vw - 110px);
 }
 
 /* Search Bar */
@@ -103,6 +72,7 @@
   font-size: 20px;
   padding: 5px 10px;
   color: #000; /* Culoare text */
+  width: 80%;
 }
 
 .search-button {

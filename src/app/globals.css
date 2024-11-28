@@ -1,3 +1,7 @@
+/*trebuie de modificat toate fisierele css pentru ca 
+sa fie eliminate toate discordantele de fisiere css*/
+/*modificarea aspectului paginii principale*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -15,12 +19,14 @@ body {
   padding: 0;
   background-color: var(--primary-color);
   color: var(--text-color);
+  height: 100%;
 }
 
 /* Containerul general */
 .dashboard-container {
   display: flex;
   min-height: 100vh;
+  background-color: var(--primary-color);
 }
 
 /* Sidebar */
@@ -34,7 +40,9 @@ body {
   gap: 20px;
   width: 110px;
   height: 100vh;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   box-shadow: 4px 0px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -69,6 +77,7 @@ body {
   width: 50px;
   height: 50px;
   filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(355deg) brightness(106%) contrast(101%);
+  border-radius: 0;
 }
 
 .menu-icon:hover {
@@ -95,15 +104,18 @@ body {
 .menu-icon-container:hover .menu-tooltip {
   opacity: 1;
   transform: translateY(-50%) translateX(10px);
+  visibility: visible;
 }
 
 /* Secțiunea de conținut principal */
 .content {
+  margin-left: 110px;
   flex: 1;
-  padding: 60px;
+  padding-top: 60px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  width: calc(100vw - 110px);
 }
 
 .main-header {
@@ -124,7 +136,7 @@ body {
 .announcements {
   display: flex;
   flex-direction: column;
-  padding-top: 110px;
+  padding-top: 80px;
   gap: 20px;
   width: 75%;
   align-self: center;
@@ -148,8 +160,8 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 35%;
-  margin: 0 auto;
-  position: absolute;
+  margin-top: 8%;
+  position: relative;
   bottom: 20px;
   align-self: center;
   text-align: center;
@@ -182,4 +194,56 @@ body {
 
 .useful-links a:hover {
   color: rgba(255, 255, 255, 0.8);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content */
+.modal-content {
+  border-width: 3px;
+  background: var(--primary-color);
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h1 {
+  margin-bottom: 15px;
+}
+
+.modal-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.modal-content ul li {
+  margin: 5px 0;
+  font-size: 1.1rem;
+}
+
+.cancel-button {
+  background: #ddd;
+  color: black;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background: #bbb;
 }

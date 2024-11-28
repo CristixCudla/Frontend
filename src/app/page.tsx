@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link'; 
 import './globals.css';
 
 const HomePage = () => {
   const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
+  const names = ["Ilisei Ciprian", "Cudla Cristian", "Popescu Luis", "Ecoboaea Denis", "Ababi Vlad"];
 
   const handleNavigation = (path: string) => {
     router.push(path);
@@ -38,15 +39,15 @@ const HomePage = () => {
           <img src="/logo.png" alt="USV Logo" className="logo" />
         </div>
         <ul>
-          {/* Contact Button */}
+          {/* Info Button */}
           <li>
             <div
               className="menu-icon-container"
-              onClick={() => handleNavigation('/contact')} // Navigare corectă cu router.push
+              onClick={() => setShowModal(true)} // Afișează modalul
               style={{ cursor: 'pointer' }}
             >
               <img src="/info.png" alt="Info" className="menu-icon" />
-              <div className="menu-tooltip">Informații de contact</div>
+              <div className="menu-tooltip">Info</div>
             </div>
           </li>
           {/* Auth Button */}
@@ -103,6 +104,27 @@ const HomePage = () => {
             </li>
           </ul>
         </div>
+
+        {/* Modal for Displaying Names */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h1>Proiect realizat de:</h1>
+            <ul>
+              {names.map((name, index) => (
+                <li key={index}>{name}</li>
+              ))}
+            </ul>
+            <button
+              type="button"
+              onClick={() => setShowModal(false)} // Închide modalul
+              className="cancel-button"
+            >
+              Închide
+            </button>
+          </div>
+        </div>
+      )}
       </div>
     </div>
   );

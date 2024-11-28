@@ -45,22 +45,15 @@ useEffect(() => {
   };
 
   return (
-    <div className="course-page-container">
+    <div className="dashboard-container">
       {/* Sidebar Section */}
-      <div className="sidebar">
-        {/* Logo-ul cu navigare la dashboard */}
-        <div
-          className="menu-icon-container"
-          onClick={() => router.push('/dashboardstudent')} // Navigare cu router.push
-          style={{ cursor: 'pointer' }}
-        >
-          <img src="/logo.png" alt="USV Logo" className="logo" />
-        </div>
+      <div className="sidebar-courses">      
+        <img src="/logo.png" alt="USV Logo" className="logo" />  
         <ul>
           {/* Calendar Button */}
           <li>
             <div
-              className="menu-icon-container"
+              className="menu-icon-calendar"
               onClick={() => router.push('/calendar')} // Navigare cu router.push
               style={{ cursor: 'pointer' }}
             >
@@ -72,7 +65,7 @@ useEffect(() => {
       </div>
 
       {/* Main Content Section */}
-      <div className="content">
+      <div className="content-courses">
         {/* Search Bar */}
         <div className="search-bar">
           <input

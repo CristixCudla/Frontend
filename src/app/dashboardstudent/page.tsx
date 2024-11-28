@@ -36,9 +36,8 @@ const DashboardStudent = () => {
     <div className="dashboard-container">
       {/* Sidebar Section */}
       <div className="sidebar"> 
-        <img src="/logo.png" alt="USV Logo" className="logo" />
-        <div onClick={() => handleNavigation('/dashboardstudent')} style={{ cursor: 'pointer' }}>
-         
+      <div onClick={() => handleNavigation('/dashboardstudent')} style={{ cursor: 'pointer' }}>
+          <img src="/logo.png" alt="USV Logo" className="logo" />
         </div>
         <ul>
           {/* Calendar Button */}
