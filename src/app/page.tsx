@@ -105,7 +105,7 @@ const HomePage = () => {
           </ul>
         </div>
 
-        {/* Modal for Displaying Names */}
+        {/* Modal for Info */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">

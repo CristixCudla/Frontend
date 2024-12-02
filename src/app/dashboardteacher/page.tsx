@@ -42,7 +42,7 @@ const DashboardTeacher = () => {
           <li>
             <div
               className="menu-icon-container"
-              onClick={() => handleNavigation('/calendar')} // Navigare corectă
+              onClick={() => handleNavigation('/calendarteacher')} // Navigare corectă
               style={{ cursor: 'pointer' }}
             >
               <img src="/calendar.png" alt="Calendar" className="menu-icon" />

@@ -44,7 +44,7 @@ const DashboardStudent = () => {
           <li>
             <div
               className="menu-icon-container"
-              onClick={() => handleNavigation('/calendar')} // Navigare corectă
+              onClick={() => handleNavigation('/calendarstudent')} // Navigare corectă
               style={{ cursor: 'pointer' }}
             >
               <img src="/calendar.png" alt="Calendar" className="menu-icon" />
