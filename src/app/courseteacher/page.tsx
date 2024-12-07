@@ -1,79 +1,73 @@
 'use client';
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import './courseteacher.css';
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import './dashboardteacher.css';
 
-const CourseTeacher = () => {
-  const [showPopup, setShowPopup] = useState(false);
+const DashboardTeacher = () => {
+  const router = useRouter(); 
 
-  const handleAddFile = () => {
-    setShowPopup(true);
+  const navigateTo = (path: string) => {
+    router.replace(path); 
   };
 
-  const closePopup = () => {
-    setShowPopup(false);
+  const handleLogout = () => {
+    document.cookie = 'isLoggedIn=; Max-Age=0; path=/;';
+    document.cookie = 'userRole=; Max-Age=0; path=/;';
+    router.replace('/'); 
   };
 
   return (
-    <div className="course-teacher-container">
-      {/* Sidebar */}
+    <div className="dashboard-container">
+      {/* Sidebar Section */}
       <div className="sidebar">
+      <div onClick={() => navigateTo('/dashboardteacher')} style={{ cursor: 'pointer' }}>
         <img src="/logo.png" alt="USV Logo" className="logo" />
+        </div>
         <ul>
+          {/* Calendar Button */}
           <li>
-            <Link href="/dashboardteacher">
-              <img src="/public/home.png" alt="Home" className="menu-icon" />
-            </Link>
+            <div className="menu-icon-container" onClick={() => navigateTo('/calendar')} style={{ cursor: 'pointer' }}>
+              <img src="/calendar.png" alt="Calendar" className="menu-icon" />
+              <div className="menu-tooltip">Calendar</div>
+            </div>
           </li>
+          {/* Courses Button */}
           <li>
-            <Link href="/calendar">
-              <img src="/public/calendar.png" alt="Calendar" className="menu-icon" />
-            </Link>
+            <div className="menu-icon-container" onClick={() => navigateTo('/courses')} style={{ cursor: 'pointer' }}>
+              <img src="/agenda.png" alt="Courses" className="menu-icon" />
+              <div className="menu-tooltip">Cursuri</div>
+            </div>
           </li>
+          {/* Settings Button */}
           <li>
-            <Link href="/teacher-announcement">
-              <img src="/public/add.png" alt="Add" className="menu-icon" />
-            </Link>
-          </li>
-          <li>
-            <Link href="/settings">
-              <img src="/public/settings.png" alt="Settings" className="menu-icon" />
-            </Link>
+            <div className="menu-icon-container" onClick={() => navigateTo('/settings')} style={{ cursor: 'pointer' }}>
+              <img src="/settings.png" alt="Settings" className="menu-icon" />
+              <div className="menu-tooltip">Setări</div>
+            </div>
           </li>
         </ul>
-      </div>
 
-      {/* Main Content */}
-      <div className="content">
-        <div className="header">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="search-bar"
-          />
-          <button className="add-file-button" onClick={handleAddFile}>
-            <img src="/add-file.png" alt="Add File" />
+        {/* Logout Button */}
+        <div className="logout-container">
+          <button className="logout-button" onClick={handleLogout}>
+            <img src="/logout.png" alt="Logout Icon" className="menu-icon" />
+            <div className="menu-tooltip">Deconectare</div>
           </button>
         </div>
+      </div>
 
-        {/* Popup Window */}
-        {showPopup && (
-          <div className="popup">
-            <div className="popup-content">
-              <h3>Upload Course Material</h3>
-              <div className="drag-drop-area">
-                Drag and drop files here
-              </div>
-              <button className="close-popup" onClick={closePopup}>
-                Close
-              </button>
-            </div>
-          </div>
-        )}
+      {/* Main Content Section */}
+      <div className="content">
+        <div className="announcements">
+        <div className="announcement">Anunț 1 - Important!</div>
+          <div className="announcement">Anunț 2 - Verifică programările.</div>
+          <div className="announcement">Anunț 3 - Modificări de sală.</div>
+          <div className="announcement">Anunț 4 - Termen limită înscriere.</div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default CourseTeacher;
+export default DashboardTeacher;

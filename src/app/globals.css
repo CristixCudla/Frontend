@@ -1,153 +1,314 @@
+/*trebuie de modificat toate fisierele css pentru ca 
+sa fie eliminate toate discordantele de fisiere css*/
+/*modificarea aspectului paginii principale*/
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/*:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --background: #ffffff;
-    --foreground: #000000;
-  }
+:root {
+  --primary-color: #4a3fd6; 
+  --color-button: #3429d2;
+  --secondary-color: #6a7ed8; 
+  --text-color: white; 
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}*/
-
-/* Main container for the dashboard */
-.dashboard-container {
-  display: flex;
-  height: 100vh;
-  background-color: #4a3fd6;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  height: 100%;
 }
 
-/* Sidebar styles */
+/* Containerul general */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--primary-color);
+}
+
+/* Sidebar */
 .sidebar {
-  width: 80px;
-  background-color: #5b54c6;
+  background-color: var(--secondary-color);
+  padding: 20px 10px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: flex-start;
-  padding: 20px 0;
+  gap: 20px;
+  width: 110px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
   box-shadow: 4px 0px 8px rgba(0, 0, 0, 0.3);
 }
 
 .logo {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 30px;
-  border-radius: 50%;
+  width: 80px;
+  height: 75px;
 }
 
 .sidebar ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  width: 100%;
-}
-
-.sidebar ul li {
-  margin: 20px 0;
-  display: flex;
-  justify-content: center;
-}
-
-.sidebar ul li a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s ease;
-}
-
-.sidebar ul li a:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-}
-
-.sidebar ul li a img {
-  width: 30px;
-  height: 30px;
-}
-
-/* Content styles */
-.content {
-  flex: 1;
-  padding: 20px;
   display: flex;
   flex-direction: column;
+  gap: 20px; 
+}
+
+.sidebar li {
+  margin: 10px 0;
+}
+
+.menu-icon-container {
+  position: relative; 
+  display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-start;
-  color: white;
+  transition: transform 0.2s ease;
+  cursor: pointer;
 }
 
-/* Title and Description */
-.main-header {
-  text-align: center;
-  margin-bottom: 40px;
+.menu-icon {
+  width: 50px;
+  height: 50px;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(355deg) brightness(106%) contrast(101%);
+  border-radius: 0;
 }
 
-.main-title {
-  font-size: 36px;
-  font-weight: bold;
+.menu-icon:hover {
+  transform: scale(0.9);
 }
 
-.main-description {
-  font-size: 18px;
-  margin-top: 10px;
+.menu-tooltip {
+  position: absolute;
+  top: 50%;
+  left: 60px;
+  transform: translateY(-50%);
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+  font-size: 1.0rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* Announcements section */
-.announcements {
-  width: 70%;
+.menu-icon-container:hover .menu-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(10px);
+  visibility: visible;
+}
+
+/* Secțiunea de conținut principal */
+.content {
+  margin-left: 110px;
+  flex: 1;
+  padding-top: 60px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-bottom: 40px;
+  width: calc(100vw - 110px);
+}
+
+.main-header {
+  text-align: center;
+}
+
+.main-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.main-description {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Secțiunea de anunțuri */
+.announcements {
+  display: flex;
+  flex-direction: column;
+  padding-top: 80px;
+  gap: 20px;
+  width: 75%;
+  align-self: center;
 }
 
 .announcement {
-  background-color: #7973d8;
+  background-color: var(--secondary-color);
+  padding: 15px 20px;
   border-radius: 10px;
-  padding: 30px;
-  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: bold;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  color: var(--text-color);
 }
 
-/* Useful Links section */
+/* Secțiunea de link-uri utile */
 .useful-links {
-  width: 70%;
+  background-color: var(--secondary-color);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 35%;
+  margin-top: 8%;
+  position: relative;
+  bottom: 20px;
+  align-self: center;
   text-align: center;
 }
 
 .useful-links h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: var(--text-color);
+  text-align: center;
 }
 
 .useful-links ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.useful-links ul li {
-  margin: 10px 0;
+.useful-links li {
+  margin-bottom: 10px;
 }
 
-.useful-links ul li a {
-  color: #fff;
-  text-decoration: underline;
-  font-size: 18px;
+.useful-links a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: bold;
+  transition: color 0.2s ease;
+  font-size: 1.15rem;
+}
+
+.useful-links a:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Content */
+.modal-content {
+  border-width: 3px;
+  background: var(--primary-color);
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h1 {
+  margin-bottom: 15px;
+}
+
+.modal-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.modal-content ul li {
+  margin: 5px 0;
+  font-size: 1.1rem;
+}
+
+.cancel-button {
+  background: #ddd;
+  color: black;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background: #bbb;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem; 
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%; 
+  } 
+}
+
+@layer base {
+  * {
+    @apply border-border; 
+  }
+  body {
+    @apply bg-background text-foreground; 
+  } 
 }
